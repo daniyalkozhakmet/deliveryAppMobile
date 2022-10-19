@@ -1,0 +1,1 @@
+export const BASE_URL="https://2d5f-2a0d-b201-1086-5dff-4d9d-d77-fafc-74a.in.ngrok.io"
