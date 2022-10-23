@@ -1,7 +1,7 @@
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "react-native-vector-icons";
-
+import {Ionicons} from 'react-native-vector-icons'
 const RestaurantItems = (props) => {
   return (
     <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
@@ -13,7 +13,7 @@ const RestaurantItems = (props) => {
             style={{ backgroundColor: "white", padding: 15, marginTop: 10 }}
           >{console.log(store.id)}
             <StoreImage image={store.image} />
-            <StoreInfo name={store.name} rating={store.rating} />
+            <StoreInfo name={store.name} rating={store.rating} city={store.city.name} />
           </TouchableOpacity>
         ))
       ) : (
@@ -63,7 +63,7 @@ const StoreInfo = (props) => {
     >
       <View>
         <Text style={{ fontSize: 15, fontWeight: "bold" }}>{props.name}</Text>
-        <Text style={{ fontSize: 13, color: "gray" }}>30-45 min</Text>
+        <Text style={{ fontSize: 13, color: "gray",marginTop:5 }}><Ionicons name="location-sharp" size={15} /> {props.city}</Text>
       </View>
       <View
         style={{

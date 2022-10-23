@@ -16,17 +16,22 @@ import { Divider } from "react-native-elements/dist/divider/Divider";
 import BottomTabs from "../components/Home/BottomTabs";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchStores,
+  fetchStoresByCity,
   fetchStoresByTransaction,
 } from "../redux/features/store/storeSlice";
 export default function Home({ navigation }) {
-  const [city, setCity1] = useState("Detroit");
+  const [city, setCity1] = useState("");
+
   const [activeTab, setActiveTab] = useState("Delivery");
   const { stores, loading, error } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchStoresByTransaction(activeTab));
+    dispatch(fetchStoresByTransaction({ transaction: activeTab }));
+    setCity1("");
   }, [activeTab]);
+  useEffect(() => {
+    dispatch(fetchStoresByCity({ city: city }));
+  }, [city]);
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 10 }}>
@@ -51,7 +56,7 @@ export default function Home({ navigation }) {
         )}
       </ScrollView>
       <Divider width={1} />
-        <BottomTabs navigation={navigation} />
+      <BottomTabs navigation={navigation} />
     </SafeAreaView>
   );
 }

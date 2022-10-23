@@ -8,24 +8,27 @@ const initialState = {
   error: null,
 };
 
-export const fetchStores = createAsyncThunk("store/fetchStores", async () => {
-  const response = await axios.get(`${BASE_URL}/api/store/`);
+export const fetchStoresByCity = createAsyncThunk("store/fetchStores", async (cred) => {
+    const { city, transaction } = cred;
+  const response = await axios.get(`${BASE_URL}/api/store?city=${city}`);
   return response.data;
 });
 export const fetchStoresByTransaction = createAsyncThunk(
   "store/fetchStores",
-  async (transaction) => {
-    const response = await axios.get(
-      `${BASE_URL}/api/store?transaction=${transaction}`
-    );
-    return response.data;
+  async (cred) => {
+    const { city, transaction } = cred;
+
+      const response = await axios.get(
+        `${BASE_URL}/api/store?transaction=${transaction}`
+      );
+      return response.data;
+    
   }
 );
 export const fetchStoreById = createAsyncThunk(
   "store/fetchStoreById",
   async (id) => {
     const response = await axios.get(`${BASE_URL}/api/store/${id}`);
-    console.log("REDUX");
     return response.data;
   }
 );
@@ -34,14 +37,14 @@ const storeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchStores.pending]: (state) => {
+    [fetchStoresByCity.pending]: (state) => {
       state.loading = true;
     },
-    [fetchStores.fulfilled]: (state, action) => {
+    [fetchStoresByCity.fulfilled]: (state, action) => {
       state.loading = false;
       state.stores = action.payload;
     },
-    [fetchStores.rejected]: (state, action) => {
+    [fetchStoresByCity.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.stores = [];

@@ -6,7 +6,7 @@ export const About = ({ store }) => {
     <View>
       <RestaurantImage image={store.image} />
       <RestauranttTitle title={store.name} />
-      <RestaurantDescrption description={store.description} />
+      <RestaurantDescrption description={store.description && store.description.slice(0,100)+'...'} />
     </View>
   );
 };

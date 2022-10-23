@@ -12,8 +12,15 @@ const StoreDetail = ({ route, navigation }) => {
   const id = route.params.store_id;
   const { store, loading, error } = useSelector((state) => state.store);
   const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart);
+  const totalPrice = () => {
+    let price = 0;
+    cart.map((book) => (price += book.price));
+    return price;
+  };
   useEffect(() => {
     dispatch(fetchStoreById(id));
+    console.log(totalPrice());
   }, [id]);
   return (
     <SafeAreaView>
@@ -33,8 +40,7 @@ const StoreDetail = ({ route, navigation }) => {
           <About store={store} style={{ flex: 1 }} />
           <Divider width={1.8} style={{ marginVertical: 10 }} />
           <StoreBooks foods={store.books} />
-        
-          <ViewCart navigation={navigation} />
+            <ViewCart navigation={navigation} totalPrice={totalPrice()} />
           <BottomTabs navigation={navigation} />
         </View>
       )}
