@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../../Variables";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const initialState = {
   loading: false,
   stores: [],
@@ -8,21 +9,28 @@ const initialState = {
   error: null,
 };
 
-export const fetchStoresByCity = createAsyncThunk("store/fetchStores", async (cred) => {
-    const { city, transaction } = cred;
-  const response = await axios.get(`${BASE_URL}/api/store?city=${city}`);
-  return response.data;
-});
-export const fetchStoresByTransaction = createAsyncThunk(
+export const fetchStoresByCity = createAsyncThunk(
   "store/fetchStores",
   async (cred) => {
     const { city, transaction } = cred;
+    const response = await axios.get(`${BASE_URL}/api/store?city=${city}`);
+    return response.data;
+  }
+);
+export const fetchStoresByTransaction = createAsyncThunk(
+  "store/fetchStores",
+  async (cred) => {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const value = await AsyncStorage.getItem("refresh");
+    console.log("refresh", value);
+    const { city, transaction } = cred;
 
-      const response = await axios.get(
-        `${BASE_URL}/api/store?transaction=${transaction}`
-      );
-      return response.data;
-    
+    const response = await axios.get(
+      `${BASE_URL}/api/store?transaction=${transaction}`
+    );
+    return response.data;
   }
 );
 export const fetchStoreById = createAsyncThunk(

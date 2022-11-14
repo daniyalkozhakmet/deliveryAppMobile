@@ -5,22 +5,46 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { ProfileBefore } from "./screens/ProfileBefore";
+import { Login } from "./components/Profile/Login";
 import BottomTabs from "./components/Home/BottomTabs";
+import { ProfileAfter } from "./screens/ProfileAfter";
+import { View } from "react-native";
+import { CartScreen } from "./screens/CartScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const Stack = createNativeStackNavigator();
+  const token = async () => {
+    try {
+      await AsyncStorage.clear();
+      const value = await AsyncStorage.getItem("token");
+      value != null ? JSON.parse(value) : null;
+      console.log(value);
+      return value;
+    } catch (error) {
+      console.log("error");
+    }
+  };
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="StoreDetail" component={StoreDetail} />
-          <Stack.Screen name="Books" component={Books} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="StoreDetail" component={StoreDetail} />
+            <Stack.Screen name="Books" component={Books} />
+            <Stack.Screen name="Profile" component={ProfileBefore} />
+            <Stack.Screen name="Register" component={Login} />
+            <Stack.Screen name="ProfileAfter" component={ProfileAfter} />
+            <Stack.Screen name="Cart" component={CartScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+      {console.log("token", token())}
+    </>
   );
 }

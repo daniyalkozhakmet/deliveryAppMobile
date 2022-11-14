@@ -20,32 +20,35 @@ export const Books = ({ navigation }) => {
     dispatch(fetchBooksByName({ name }));
   }, [name]);
   return (
-    <SafeAreaView style={{ height: "100%" }}>
-      <View style={{ backgroundColor: "white", padding: 10 }}>
-        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        <SearchBarName setName={setName} name={name} />
+    <SafeAreaView>
+      <View style={{ height: "96%" }}>
+        <View style={{ backgroundColor: "white", padding: 10 }}>
+          <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          <SearchBarName setName={setName} name={name} />
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Categories />
+          {loading ? (
+            <View
+              style={{
+                height: 400,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ActivityIndicator size="large" />
+            </View>
+          ) : (
+            <View>
+              {books.map((book) => (
+                <BookItem book={book} id={book.id} />
+              ))}
+            </View>
+          )}
+        </ScrollView>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Categories />
-        {loading ? (
-          <View
-            style={{
-              height: 400,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ActivityIndicator size="large" />
-          </View>
-        ) : (
-          <View>
-            {books.map((book) => (
-              <BookItem book={book} />
-            ))}
-          </View>
-        )}
-      </ScrollView>
+
       <BottomTabs navigation={navigation} />
     </SafeAreaView>
   );

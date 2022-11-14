@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome5 } from "react-native-vector-icons";
-const onPress = () => console.log("Helloo");
 const BottomTabs = ({ navigation }) => {
   return (
     <View
@@ -24,13 +23,13 @@ const BottomTabs = ({ navigation }) => {
       >
         <Icon icon="home" text="Home" navigation={navigation} />
 
-        <Icon icon="search" text="Browse" navigation={navigation} />
+        <Icon icon="shopping-cart" text="Cart" navigation={navigation} />
 
         <Icon icon="book" text="Books" navigation={navigation} />
 
         <Icon icon="receipt" text="Orders" navigation={navigation} />
 
-        <Icon icon="user" text="Account" navigation={navigation} />
+        <Icon icon="user" text="Profile" navigation={navigation} />
       </View>
     </View>
   );

@@ -23,7 +23,7 @@ const StoreDetail = ({ route, navigation }) => {
     console.log(totalPrice());
   }, [id]);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "#eee", height:'100%' }}>
       {loading ? (
         <View
           style={{

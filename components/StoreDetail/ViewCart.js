@@ -2,20 +2,24 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { OrderItem } from "./OrderItem";
 import { useSelector } from "react-redux";
+import { ScrollView } from "react-native";
 export const ViewCart = ({ navigation, totalPrice }) => {
   const [modalVisable, setModalVisable] = useState(false);
-  const {cart}=useSelector(state=>state.cart)
-  const chechOutModalContent = () => {
+  const { cart } = useSelector((state) => state.cart);
+  const chechOutModalContent = (navigation) => {
     return (
       <>
         <View style={styles.modalContainer}>
           <View style={styles.modalCheckoutContainer}>
             <Text style={styles.storeName}>Store Name</Text>
-            {cart.map(item =>(
-              <>
-              <OrderItem item={{ price: item.price, title: item.name }} />
-              </>
-            ))}
+            <ScrollView>
+              {cart.map((item) => (
+                <>
+                  <OrderItem item={{ price: item.price, title: item.name }} />
+                </>
+              ))}
+            </ScrollView>
+
             <View style={styles.subTotalContainer}>
               <Text style={styles.subTotalText}>SubTotal</Text>
               <Text>{totalPrice}</Text>
@@ -24,6 +28,7 @@ export const ViewCart = ({ navigation, totalPrice }) => {
               <TouchableOpacity
                 style={{
                   marginTop: 20,
+                  marginBottom: 20,
                   backgroundColor: "black",
                   alignItems: "center",
                   padding: 13,
@@ -31,9 +36,12 @@ export const ViewCart = ({ navigation, totalPrice }) => {
                   width: 300,
                   position: "relative",
                 }}
-                onPress={() => setModalVisable(false)}
+                onPress={() => {
+                  navigation.navigate("Cart");
+                  setModalVisable(false);
+                }}
               >
-                <Text style={{ color: "white" }}>Check out  {totalPrice}</Text>
+                <Text style={{ color: "white" }}>Check out {totalPrice}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -77,9 +85,11 @@ export const ViewCart = ({ navigation, totalPrice }) => {
         animationType="slide"
         visible={modalVisable}
         transparent={true}
-        onRequestClose={() => setModalVisable(false)}
+        onRequestClose={() => {
+          setModalVisable(false);
+        }}
       >
-        {chechOutModalContent()}
+        {chechOutModalContent(navigation)}
       </Modal>
       <>
         {totalPrice > 0 && (
