@@ -12,19 +12,9 @@ import { ProfileAfter } from "./screens/ProfileAfter";
 import { View } from "react-native";
 import { CartScreen } from "./screens/CartScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AddressScreen } from "./screens/AddressScreen";
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const token = async () => {
-    try {
-      await AsyncStorage.clear();
-      const value = await AsyncStorage.getItem("token");
-      value != null ? JSON.parse(value) : null;
-      console.log(value);
-      return value;
-    } catch (error) {
-      console.log("error");
-    }
-  };
   return (
     <>
       <Provider store={store}>
@@ -41,10 +31,10 @@ export default function App() {
             <Stack.Screen name="Register" component={Login} />
             <Stack.Screen name="ProfileAfter" component={ProfileAfter} />
             <Stack.Screen name="Cart" component={CartScreen} />
+            <Stack.Screen name="Address" component={AddressScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
-      {console.log("token", token())}
     </>
   );
 }

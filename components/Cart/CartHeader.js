@@ -2,14 +2,14 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import { AntDesign } from "react-native-vector-icons";
-export const CartHeader = ({ navigation }) => {
+export const CartHeader = ({ navigation, sum }) => {
   return (
     <View>
       <View
         style={{
           width: "100%",
           marginVertical: 20,
-          justifyContent: "start",
+          justifyContent: "space-between",
           alignItems: "center",
           display: "flex",
           flexDirection: "row",
@@ -29,7 +29,6 @@ export const CartHeader = ({ navigation }) => {
             alignSelf: "flex-start",
             borderRadius: 20,
             backgroundColor: "black",
-            marginLeft: "25%",
           }}
         >
           <Text
@@ -44,6 +43,17 @@ export const CartHeader = ({ navigation }) => {
           >
             Cart Items
           </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: "black",
+            height: 40,
+            borderRadius: "50%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white", padding: 7 }}>{sum}</Text>
         </View>
       </View>
       <Divider width={1} color={"grey"} />

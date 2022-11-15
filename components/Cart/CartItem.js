@@ -3,13 +3,20 @@ import React, { useState } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { AntDesign } from "react-native-vector-icons";
 import { TouchableOpacity } from "react-native";
-export const CartItem = ({ title, price, image, rating }) => {
+import {
+  remove_from_cart,
+  increase_qty,
+  reduce_qty,
+} from "../../redux/features/cart/cartSlice";
+import { useDispatch } from "react-redux";
+export const CartItem = ({ title, price, image, rating, id, qty }) => {
   const [item, setItem] = useState({
     title,
     store: "Store1",
     price,
-    qty: 1,
+    qty,
     image,
+    id,
   });
   return (
     <View
@@ -23,13 +30,14 @@ export const CartItem = ({ title, price, image, rating }) => {
       }}
     >
       <View style={{ flexDirection: "row", flex: 2 }}>
-        <CheckImage image={item.image} />
+        <CheckImage image={item.image} id={item.id} />
         <CartContent title={item.title} store={item.store} price={item.price} />
       </View>
 
       <Counter
         style={{ flex: 1 }}
         qty={item.qty}
+        id={item.id}
         setItem={setItem}
         item={item}
       />
@@ -37,17 +45,22 @@ export const CartItem = ({ title, price, image, rating }) => {
   );
 };
 const Counter = (props) => {
+  const dispatch = useDispatch();
   const increaseQty = () => {
+    dispatch(increase_qty(props.id));
     props.setItem({
       ...props.item,
       qty: props.item.qty + 1,
     });
   };
   const decreaseQty = () => {
-    props.setItem({
-      ...props.item,
-      qty: props.item.qty - 1,
-    });
+    if (props.item.qty > 1) {
+      dispatch(reduce_qty(props.id));
+      props.setItem({
+        ...props.item,
+        qty: props.item.qty - 1,
+      });
+    }
   };
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -55,7 +68,9 @@ const Counter = (props) => {
         <AntDesign name={"minus"} color={"#808080"} size={20} />
       </TouchableOpacity>
 
-      <Text style={{ marginHorizontal: 10, fontSize: 20 }}>{props.qty}</Text>
+      <Text style={{ marginHorizontal: 10, fontSize: 20 }}>
+        {props.item.qty}
+      </Text>
       <TouchableOpacity onPress={increaseQty}>
         <AntDesign name={"plus"} color="#EE4B2B" size={20} />
       </TouchableOpacity>
@@ -76,7 +91,10 @@ const CartContent = (props) => {
   );
 };
 const CheckImage = (props) => {
-  const isBookInCart = () => {};
+  const dispatch = useDispatch();
+  const removeFromCart = (id) => {
+    dispatch(remove_from_cart(id));
+  };
   return (
     <View
       style={{
@@ -89,10 +107,8 @@ const CheckImage = (props) => {
         <BouncyCheckbox
           iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
           fillColor="green"
-          // isChecked={isBookInCart(food)}
-          // onPress={(checkboxValue) =>
-          //   dispatch(add_to_cart({ food, checkboxValue }))
-          // }
+          isChecked={true}
+          onPress={() => removeFromCart(props.id)}
         />
       </View>
 

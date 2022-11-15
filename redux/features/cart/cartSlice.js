@@ -10,6 +10,25 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    increase_qty: (state, action) => {
+      const id = action.payload;
+      state.cart.map((item) => {
+        item.id == id && item.qty++;
+      });
+    },
+    reduce_qty: (state, action) => {
+      const id = action.payload;
+      const existed = state.cart.find((item) => item.id == id);
+      console.log(existed);
+      if (existed && existed.qty > 1) {
+        existed.qty = existed.qty - 1;
+      }
+    },
+    remove_from_cart: (state, action) => {
+      console.log(action.payload);
+      const id = action.payload;
+      state.cart = state.cart.filter((book) => book.id != id);
+    },
     add_to_cart: (state, action) => {
       const { checkboxValue, food } = action.payload;
       if (checkboxValue && state.cart.length == 0) {
@@ -30,5 +49,6 @@ const cartSlice = createSlice({
   },
   extraReducers: {},
 });
-export const { add_to_cart } = cartSlice.actions;
+export const { add_to_cart, remove_from_cart, increase_qty, reduce_qty } =
+  cartSlice.actions;
 export default cartSlice.reducer;

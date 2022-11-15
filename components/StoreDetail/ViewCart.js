@@ -14,9 +14,15 @@ export const ViewCart = ({ navigation, totalPrice }) => {
             <Text style={styles.storeName}>Store Name</Text>
             <ScrollView>
               {cart.map((item) => (
-                <>
-                  <OrderItem item={{ price: item.price, title: item.name }} />
-                </>
+                <View key={item.id}>
+                  <OrderItem
+                    item={{
+                      price: item.price,
+                      title: item.name,
+                      qty: item.qty,
+                    }}
+                  />
+                </View>
               ))}
             </ScrollView>
 

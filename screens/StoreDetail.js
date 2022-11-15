@@ -15,15 +15,14 @@ const StoreDetail = ({ route, navigation }) => {
   const { cart } = useSelector((state) => state.cart);
   const totalPrice = () => {
     let price = 0;
-    cart.map((book) => (price += book.price));
+    cart.map((book) => (price += book.price * book.qty));
     return price;
   };
   useEffect(() => {
     dispatch(fetchStoreById(id));
-    console.log(totalPrice());
   }, [id]);
   return (
-    <SafeAreaView style={{ backgroundColor: "#eee", height:'100%' }}>
+    <SafeAreaView style={{ backgroundColor: "#eee", height: "100%" }}>
       {loading ? (
         <View
           style={{
@@ -40,7 +39,7 @@ const StoreDetail = ({ route, navigation }) => {
           <About store={store} style={{ flex: 1 }} />
           <Divider width={1.8} style={{ marginVertical: 10 }} />
           <StoreBooks foods={store.books} />
-            <ViewCart navigation={navigation} totalPrice={totalPrice()} />
+          <ViewCart navigation={navigation} totalPrice={totalPrice()} />
           <BottomTabs navigation={navigation} />
         </View>
       )}

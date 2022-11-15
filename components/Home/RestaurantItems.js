@@ -11,7 +11,7 @@ const RestaurantItems = (props) => {
             onPress={() => {props.navigation.navigate("StoreDetail",{"store_id":store.id})}}
             key={store.id}
             style={{ backgroundColor: "white", padding: 15, marginTop: 10 }}
-          >{console.log(store.id)}
+          >
             <StoreImage image={store.image} />
             <StoreInfo name={store.name} rating={store.rating} city={store.city.name} />
           </TouchableOpacity>

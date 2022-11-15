@@ -42,7 +42,7 @@ export const Books = ({ navigation }) => {
           ) : (
             <View>
               {books.map((book) => (
-                <BookItem book={book} id={book.id} />
+                <BookItem book={book} id={book.id} key={book.id}/>
               ))}
             </View>
           )}
