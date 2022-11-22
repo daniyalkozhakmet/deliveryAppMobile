@@ -13,6 +13,9 @@ import { View } from "react-native";
 import { CartScreen } from "./screens/CartScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AddressScreen } from "./screens/AddressScreen";
+import { Payment } from "./screens/PaymentScreen";
+import { OrderScreen } from "./screens/OrderScreen";
+import { OrderItemScreen } from "./screens/OrderItemScreen";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -32,6 +35,9 @@ export default function App() {
             <Stack.Screen name="ProfileAfter" component={ProfileAfter} />
             <Stack.Screen name="Cart" component={CartScreen} />
             <Stack.Screen name="Address" component={AddressScreen} />
+            <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen name="Order" component={OrderScreen} />
+            <Stack.Screen name="OrderItem" component={OrderItemScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

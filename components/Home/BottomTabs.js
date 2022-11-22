@@ -29,7 +29,8 @@ const BottomTabs = ({ navigation }) => {
 
         <Icon icon="receipt" text="Address" navigation={navigation} />
 
-        <Icon icon="user" text="Profile" navigation={navigation} />
+        {/* <Icon icon="user" text="ProfileAfter" navigation={navigation} /> */}
+        <Icon icon="user" text="Register" navigation={navigation} />
       </View>
     </View>
   );

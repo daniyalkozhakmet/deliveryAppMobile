@@ -11,7 +11,7 @@ export const AddressScreen = ({ navigation }) => {
         <ProgressBar navigation={navigation} step={1}/>
         <Divider />
         <View style={{height:"88%"}}>
-          <AddressForm />
+          <AddressForm navigation={navigation}/>
         </View>
       </View>
       <BottomTabs navigation={navigation}/>

@@ -4,14 +4,18 @@ import { TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native";
 
-export const AddressForm = ({navigation}) => {
-  const [street, setStreet] = useState("");
-  const [address, setAddress] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [city, setCity] = useState("");
-  const addressDataHandler = () => {
-    navigation.navigate('Payment')
-    console.log({ street, address, zipcode, city });
+export const PaymentForm = ({ navigation }) => {
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [cardDate, setCardDate] = useState({
+    month: "",
+    year: "",
+  });
+  const cardDataHandler = () => {
+    // navigation.navigate("Payment");
+    console.log({ cardName, cardNumber, cvc, cardDate });
+    navigation.navigate('Order')
   };
   return (
     <View style={{ height: "100%" }}>
@@ -25,21 +29,21 @@ export const AddressForm = ({navigation}) => {
               marginVertical: 20,
             }}
           >
-            ADDRESS
+            Payment
           </Text>
           <View style={{ width: "90%", marginHorizontal: "5%" }}>
             <View style={{ marginBottom: 10 }}>
               <Text
                 style={{ fontSize: 16, marginBottom: 5, fontWeight: "400" }}
               >
-                Delivery Address
+                Name of Card
               </Text>
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.TextInput}
-                  placeholder="Enter an address..."
+                  placeholder="Enter an card name..."
                   placeholderTextColor="#003f5c"
-                  onChangeText={(address) => setAddress(address)}
+                  onChangeText={(cardName) => setCardName(cardName)}
                 />
               </View>
             </View>
@@ -47,14 +51,15 @@ export const AddressForm = ({navigation}) => {
               <Text
                 style={{ fontSize: 16, marginBottom: 5, fontWeight: "400" }}
               >
-                Street
+                Credit Card
               </Text>
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.TextInput}
-                  placeholder="Enter an city..."
+                  placeholder="number..."
                   placeholderTextColor="#003f5c"
-                  onChangeText={(street) => setStreet(street)}
+                  keyboardType="numeric"
+                  onChangeText={(cardNumber) => setCardNumber(cardNumber)}
                 />
               </View>
             </View>
@@ -69,14 +74,15 @@ export const AddressForm = ({navigation}) => {
                 <Text
                   style={{ fontSize: 16, marginBottom: 5, fontWeight: "400" }}
                 >
-                  City
+                  CVC
                 </Text>
                 <View style={styles.inputView}>
                   <TextInput
                     style={styles.TextInput}
-                    placeholder="Enter an city..."
+                    placeholder="Enter an CVC..."
                     placeholderTextColor="#003f5c"
-                    onChangeText={(city) => setCity(city)}
+                    keyboardType="numeric"
+                    onChangeText={(cvc) => setCvc(cvc)}
                   />
                 </View>
               </View>
@@ -84,30 +90,52 @@ export const AddressForm = ({navigation}) => {
                 <Text
                   style={{ fontSize: 16, marginBottom: 5, fontWeight: "400" }}
                 >
-                  City
+                  Expiration
                 </Text>
-                <View style={styles.inputView}>
-                  <TextInput
-                    style={styles.TextInput}
-                    placeholder="Enter an city..."
-                    placeholderTextColor="#003f5c"
-                    onChangeText={(zipcode) => setZipcode(zipcode)}
-                  />
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View style={styles.inputView50}>
+                    <TextInput
+                      style={styles.TextInput}
+                      placeholder="Month"
+                      keyboardType="numeric"
+                      placeholderTextColor="#003f5c"
+                      onChangeText={(month) =>
+                        setCardDate({ ...cardDate, month: month })
+                      }
+                    />
+                  </View>
+                  <View style={styles.inputView50}>
+                    <TextInput
+                      style={styles.TextInput}
+                      placeholder="Year"
+                      keyboardType="numeric"
+                      placeholderTextColor="#003f5c"
+                      onChangeText={(year) =>
+                        setCardDate({ ...cardDate, year: year })
+                      }
+                    />
+                  </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
-      <PaymentBtn addressDataHandler={addressDataHandler} />
+      <PaymentBtn cardDataHandler={cardDataHandler} />
     </View>
   );
 };
 
-const PaymentBtn = ({ addressDataHandler }) => {
+const PaymentBtn = ({ cardDataHandler }) => {
   return (
-    <View style={{ position: "absolute", bottom: "20%", left: "33%" }}>
-      <TouchableOpacity onPress={() => addressDataHandler()}>
+    <View style={{ position: "absolute", bottom: "20%", left: "27%" }}>
+      <TouchableOpacity onPress={() => cardDataHandler()}>
         <View
           style={{
             paddingHorizontal: 20,
@@ -116,7 +144,7 @@ const PaymentBtn = ({ addressDataHandler }) => {
           }}
         >
           <Text style={{ color: "white", fontSize: 20, fontWeight: "500" }}>
-            PAYMENT
+            PLACE ORDER
           </Text>
         </View>
       </TouchableOpacity>
@@ -143,6 +171,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFDDD2",
     borderRadius: 7,
     width: "100%",
+    height: 45,
+    marginBottom: 10,
+  },
+  inputView50: {
+    backgroundColor: "#FFDDD2",
+    borderRadius: 7,
+    width: "48%",
     height: 45,
     marginBottom: 10,
   },

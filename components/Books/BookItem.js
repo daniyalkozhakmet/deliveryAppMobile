@@ -10,7 +10,9 @@ export const BookItem = (props) => {
         <BookImage image={props.book.image} />
         <BookInfo
           name={props.book.name}
-          description={props.book.description && props.book.description.slice(0,100)}
+          description={
+            props.book.description && props.book.description.slice(0, 100)
+          }
           rating={props.book.rating}
         />
       </View>
@@ -57,7 +59,7 @@ const BookInfo = (props) => {
         marginTop: 6,
         paddingHorizontal: 7,
         alignItems: "flex-start",
-        width: "60%"
+        width: "60%",
       }}
     >
       <View>
@@ -79,44 +81,44 @@ const BookInfo = (props) => {
           <View
             style={{ flexDirection: "row", marginBottom: 10, fontSize: 25 }}
           >
+            <AntDesign name="star" size={20} color="orange" />
             <AntDesign name="staro" size={20} />
-            <AntDesign name="star" size={20} color="orange" />
-            <AntDesign name="star" size={20} color="orange" />
-            <AntDesign name="star" size={20} color="orange" />
-            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="staro" size={20} />
+            <AntDesign name="staro" size={20} />
+            <AntDesign name="staro" size={20} />
           </View>
         )}
         {props.rating == 2 && (
           <View
             style={{ flexDirection: "row", marginBottom: 10, fontSize: 25 }}
           >
+            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="star" size={20} color="orange" />
             <AntDesign name="staro" size={20} />
             <AntDesign name="staro" size={20} />
-            <AntDesign name="star" size={20} color="orange" />
-            <AntDesign name="star" size={20} color="orange" />
-            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="staro" size={20} />
           </View>
         )}
         {props.rating == 3 && (
           <View
             style={{ flexDirection: "row", marginBottom: 10, fontSize: 25 }}
           >
-            <AntDesign name="staro" size={20} />
-            <AntDesign name="staro" size={20} />
-            <AntDesign name="staro" size={20} />
             <AntDesign name="star" size={20} color="orange" />
             <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="staro" size={20} />
+            <AntDesign name="staro" size={20} />
           </View>
         )}
         {props.rating == 4 && (
           <View
             style={{ flexDirection: "row", marginBottom: 10, fontSize: 25 }}
           >
-            <AntDesign name="staro" size={20} />
-            <AntDesign name="staro" size={20} />
-            <AntDesign name="staro" size={20} />
-            <AntDesign name="staro" size={20} />
             <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="star" size={20} color="orange" />
+            <AntDesign name="staro" size={20} />
           </View>
         )}
         {props.rating == 5 && (
